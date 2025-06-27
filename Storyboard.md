@@ -9,4 +9,4 @@
 | T-0001  | Create folder skeleton     | —          | F02, F05     | Done ✅     | 2025-06-25 confirmed |
 | T-0002  | Draft README & Vision      | —          | F01, F02     | Done ✅     | 2025-06-25 committed |
 | T-0003  | Author Plan v0.1           | T-0002     | F02, F04     | Done ✅     | 2025-06-25 committed |
-| T-0004  | Seed Fact & Context SOP    | T-0002     | F01, F02     | In-Progress| 2025-06-25 migration |
+| T-0004  | Seed Fact & Context SOP    | T-0002     | F01, F02     | Done ✅     | 2025-06-25 migration |
