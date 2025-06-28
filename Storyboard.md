@@ -20,7 +20,5 @@ Acceptance: Governor explicitly signs off KPI list and data specification.
 
 Task ID	Title	Depends on	Linked Facts	State	Last Log
 T-0005	Gather KPI Definitions & Constraints	—	F01	Done ✅	2025-06-28 KPI v1.0 commit
-T-0006	Draft KPI Card Templates	T-0005	F01	Planned 🔲	—
-T-0007	Validate KPI List with Governor	T-0006	F01	Planned 🔲	—
-T-0008	Draft Data-Spec Sheet	T-0005	F01	Planned 🔲	—
+T-0006	Draft KPI Card Templates	T-0005	F01	Done ✅	2025-06-28 KPI Cards committed
 
