@@ -18,7 +18,9 @@ Focus: Confirm analytics scope and detailed planning blueprint explicitly aligne
 Deliverables: D-1 KPI Dictionary ("KPI List v1.0.md"), D-2 KPI Cards explicitly defined (Sales, Ops, Exec), D-3 Data-Spec Sheet (/docs/data_spec.xlsx) explicitly populated.
 Acceptance: Governor explicitly signs off KPI list and data specification.
 
-Task ID	Title	Depends on	Linked Facts	State	Last Log
-T-0005	Gather KPI Definitions & Constraints	—	F01	Done ✅	2025-06-28 KPI v1.0 commit
-T-0006	Draft KPI Card Templates	T-0005	F01	Done ✅	2025-06-28 KPI Cards committed
+Task ID | Title | Depends on | Linked Facts | State | Last Log
+--- | --- | --- | --- | --- | ---
+T-0005 | Gather KPI Definitions & Constraints | — | F01 | Done ✅ | 2025-06-28 KPI v1.0 commit
+T-0006 | Draft KPI Card Templates | T-0005 | F01 | Done ✅ | 2025-06-28 KPI Cards committed
+T-0007 | Validate KPI List w/ Governor | T-0006 | F01 | Done ✅ | 2025-06-28 explicitly validated
 
