@@ -1,0 +1,4 @@
+[
+  { "CampaignID": 501, "SpendAmount": 1200.00, "SpendDate": "2025-07-24", "Channel": "Google Ads" },
+  { "CampaignID": 502, "SpendAmount":  850.00, "SpendDate": "2025-07-24", "Channel": "Facebook" }
+]
