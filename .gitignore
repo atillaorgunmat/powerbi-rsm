@@ -1,1 +1,20 @@
 .DS_Store
+
+# build artefacts
+logs/
+scratch/
+*.dacpac
+bin/
+obj/
+landing.zip
+
+
+# build artefacts
+logs/
+scratch/
+*.dacpac
+bin/
+obj/
+landing.zip
+sqlproject/**/bin/
+sqlproject/**/obj/

@@ -1,0 +1,160 @@
+
+Project Charter
+Retail Multi‑Source KPI Suite – Sales, Operations & Executive Dashboards (Power BI Fabric)  Version 1.1  |  July 2025
+
+
+
+## 1 | Vision & Purpose
+Deliver a flagship, portfolio‑grade analytics solution that unifies Retail Sales, Store/Warehouse Operations and CRM engagement data into a single governed Power BI semantic model running on Microsoft Fabric (free tier).
+The suite will
+
+
+Break data silos
+by combining an Order/Return CSV (OneDrive), a SQL Express Inventory‑Events log, and Customer/Interaction JSON (GitHub Pages).
+Empower every persona
+with role‑tailored dashboards (Sales, Operations, Executive) backed by drill‑through detail pages.
+Showcase end‑to‑end BI craft
+data modelling, ETL, DAX, UX, RLS, documentation & cloud deployment — evidence for freelance bids and interviews.
+Strategic end‑state
+“Any stakeholder can open their dashboard, trust the KPI they see, and drill in < 3 clicks to the transaction, inventory or customer touchpoint that explains it.”
+
+
+
+## 2 | Objectives & Success Criteria
+Objective
+Measure of Success
+Unified Semantic Model
+One Power BI dataset refreshed on schedule; conformed Date, Product, Store, Customer dimensions shared across Sales, Inventory & CRM facts.
+Role‑Specific Insight
+
+• Sales – isolate under‑target region or promo in ≤ 3 clicks.
+• Operations – spot root cause of a > 2 % shrinkage spike or stock‑out event.
+• Executive – gauge revenue, margin, inventory health & customer retention in ≤ 30 s.
+Semantic Consistency
+KPIs (Revenue, Gross Margin %, Shrinkage %, Customer Conversion %, etc.) return identical values anywhere they surface.
+Interactive Drill‑Through
+From any headline KPI, users reach detail pages with correct filter context (e.g., click “Returns %” → itemised return reasons).
+Portfolio Polish
+Charter, ERD, KPI dictionary, User Guides & Loom tours published; peer reviewers score clarity ≥ 4 / 5.
+
+
+
+## 3 | High‑Level Scope
+In Scope
+	•	Data Integration  
+	◦	Sales: Order Header & Line Items CSV (OneDrive) incl. returns, payment type, promotion code.  
+	◦	Operations: SQL Express InventoryEvents table (deliveries, re‑orders, shrinkage, damaged goods).  
+	◦	CRM: Customer master & Interaction history JSON (GitHub Pages).  
+	•	ETL / Architecture  
+	◦	Fabric Dataflows (Staging → Transformation) → Star/Constellation dataset.  
+	•	KPI Engineering  
+	◦	Sales: Revenue, Gross Margin %, Average Order Value, Promo Uplift, Return %.  
+	◦	Operations: Stock on Hand, Re‑order Frequency, Shrinkage %, Delivery Lead‑Time, Stock‑out Rate.  
+	◦	Customer/CRM: Lead‑to‑Customer %, High‑Value Share, Interaction‑per‑Customer, Churn Rate.  
+	◦	Cross‑domain: Sales per Sq Ft, Sell‑through Rate, Campaign ROI.  
+	•	Dashboards & UX  
+	◦	Sales – revenue vs target, promo performance, return drivers.  
+	◦	Operations – inventory health, shrinkage drill‑down, supplier delivery SLA.  
+	◦	Executive – revenue & margin trend, inventory risk flags, customer growth funnel.  
+	◦	Bookmarks, drill‑through pages, smart narrative.  
+	•	Governance Artefacts  
+	◦	RLS demo (e.g., store manager sees only their store).  
+	◦	Full documentation & risk log.  
+Out of Scope
+Real‑time streaming, ML demand‑forecasting, paid cloud capacity, mobile‑specific redesign, enterprise ALM pipeline (simulated only).
+Timeline (8 Weeks)
+Stage
+Focus
+WK 1
+Initiation & Planning (charter, KPI list, risk log)
+WK 2
+Data‑source build & environment setup
+WK 3
+Data modelling (staging flows, star schema)
+WK 4
+Measure engineering & validation
+WK 5–6
+Sales & Operations dashboards
+WK 7
+Executive dashboard & refinement
+WK 8
+Testing, deployment, hand‑off
+
+
+
+## 4 | Stakeholders & Roles
+Role / Persona
+Primary Interest
+Key Responsibility
+Executive Leadership
+(CEO / COO / CFO)
+Holistic profit, inventory risk, customer growth
+Approve vision, success targets
+Sales Team
+(Regional Mgrs, Reps)
+Revenue vs target, promo ROI, return %
+Define sales KPIs; UAT Sales dashboard
+Operations Team
+(Store & Warehouse Mgrs)
+Shrinkage, stock‑outs, supplier performance
+Define ops KPIs; UAT Ops dashboard
+Marketing / CRM
+(Campaign Lead)
+Lead conversion, customer value segmentation
+Input CRM requirements; validate funnel metrics
+BI Developer
+Portfolio delivery & quality
+Design, build, test, document full solution
+IT / Infra (sim.)
+Connectivity, gateway uptime
+Maintain SQL VM & gateway, assist credentials
+
+
+
+## 5 | Key Assumptions
+	1	Sample data volumes (≤ 50 k order lines, ≤ 10 k inventory events, ≤ 5 k customers) fit free‑tier limits.  
+	2	Microsoft 365, Fabric trial workspace and OneDrive storage remain available throughout the project.  
+	3	A free SQL Express or Fabric Warehouse instance can host InventoryEvents without cost.  
+	4	Stakeholder personas and scripted UAT scenarios substitute for live end‑users.  
+	5	Daily scheduled refresh is sufficient; near‑real‑time not required.  
+
+
+
+## 6 | Initial Risk Register
+ID
+Risk
+Likelihood
+Impact
+Mitigation
+R‑01
+VM / Gateway downtime halts SQL refresh
+Med
+High
+Auto‑start script; daily alert; cache last extract
+R‑02
+GitHub JSON unavailable / CORS error
+Med
+Med
+Fallback OneDrive JSON; cache‑busting param
+R‑03
+Shrinkage or Stock‑out KPIs mis‑calculated
+Low
+High
+Unit‑test vs Excel pivot; peer review formulas
+R‑04
+Model bloat from extra return / promo fields
+Med
+Med
+Star schema, remove unused cols, compression check
+R‑05
+Scope creep (extra dashboards & KPIs)
+High
+Med
+Enforce “business‑first KPI” rule; backlog extras
+
+
+
+## 7 | Governance & Approval
+	•	Stage Gates: End‑of‑stage demo + 1‑page summary.  
+	•	Change Control: Scope changes > ±10 % effort require sponsor approval.  
+	•	Repo Structure: /docs (charter, ERD, KPI dictionary, risk log), /data, /pbix, /videos, /scripts.  
