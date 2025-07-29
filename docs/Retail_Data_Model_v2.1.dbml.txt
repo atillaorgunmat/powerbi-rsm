@@ -1,0 +1,221 @@
+// Dimensions
+
+Table DimDate {
+  DateID int [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimProduct {
+  ProductID int [pk]
+  SupplierID int [ref: > DimSupplier.SupplierID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimStore {
+  StoreID int [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimCustomer {
+  CustomerID int [pk]
+  AssignedRepID int [ref: > DimSalesRep.SalesRepID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimPromotion {
+  PromotionCode nvarchar(50) [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimSalesRep {
+  SalesRepID int [pk]
+  StoreID int [ref: > DimStore.StoreID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimReturnReason {
+  ReturnReasonID int [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimCampaign {
+  CampaignID int [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimSupplier {
+  SupplierID int [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimPaymentType {
+  PaymentTypeID int [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimInteractionType {
+  InteractionTypeID int [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table DimEventType {
+  EventTypeID int [pk]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+// Facts
+
+Table FactOrderHeader {
+  OrderID int [pk]
+  DateID int [ref: > DimDate.DateID]
+  CustomerID int [ref: > DimCustomer.CustomerID]
+  StoreID int [ref: > DimStore.StoreID]
+  SalesRepID int [ref: > DimSalesRep.SalesRepID]
+  PaymentTypeID int [ref: > DimPaymentType.PaymentTypeID]
+  PromotionCode nvarchar(50) [ref: > DimPromotion.PromotionCode]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactOrderItems {
+  OrderItemID int [pk]
+  OrderID int [ref: > FactOrderHeader.OrderID]
+  ProductID int [ref: > DimProduct.ProductID]
+  DateID int [ref: > DimDate.DateID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactOrderReturns {
+  ReturnID int [pk]
+  OrderID int [ref: > FactOrderHeader.OrderID]
+  ProductID int [ref: > DimProduct.ProductID]
+  DateID int [ref: > DimDate.DateID]
+  ReturnReasonID int [ref: > DimReturnReason.ReturnReasonID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactInventoryEvents {
+  EventID int [pk]
+  EventTypeID int [ref: > DimEventType.EventTypeID]
+  ProductID int [ref: > DimProduct.ProductID]
+  StoreID int [ref: > DimStore.StoreID]
+  SupplierID int [ref: > DimSupplier.SupplierID]
+  DateID int [ref: > DimDate.DateID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactCustomerInteractions {
+  InteractionID int [pk]
+  CustomerID int [ref: > DimCustomer.CustomerID]
+  SalesRepID int [ref: > DimSalesRep.SalesRepID]
+  InteractionTypeID int [ref: > DimInteractionType.InteractionTypeID]
+  DateID int [ref: > DimDate.DateID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactSales {
+  SalesFactID int [pk]
+  DateID int [ref: > DimDate.DateID]
+  StoreID int [ref: > DimStore.StoreID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactInventorySnapshot {
+  SnapshotDateID int [pk]
+  ProductID int [ref: > DimProduct.ProductID]
+  StoreID int [ref: > DimStore.StoreID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactOrderStatus {
+  OrderStatusID int [pk]
+  SnapshotDateID int
+  OrderID int [ref: > FactOrderHeader.OrderID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactCostOfGoods {
+  COGSID int [pk]
+  DateID int [ref: > DimDate.DateID]
+  ProductID int [ref: > DimProduct.ProductID]
+  StoreID int [ref: > DimStore.StoreID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactCampaignSpend {
+  CampaignSpendID int [pk]
+  CampaignID int [ref: > DimCampaign.CampaignID]
+  DateID int [ref: > DimDate.DateID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactOrderItemPromotion {
+  OrderItemPromoID int [pk]
+  OrderID int [ref: > FactOrderHeader.OrderID]
+  ProductID int [ref: > DimProduct.ProductID]
+  PromotionCode nvarchar(50) [ref: > DimPromotion.PromotionCode]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactFootTraffic {
+  FootTrafficID int [pk]
+  StoreID int [ref: > DimStore.StoreID]
+  DateID int [ref: > DimDate.DateID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}
+
+Table FactLeadLifecycle {
+  LeadLifecycleID int [pk]
+  CustomerID int [ref: > DimCustomer.CustomerID]
+  DateID int [ref: > DimDate.DateID]
+  LoadDate datetime
+  SourceSystem nvarchar(50)
+  RecordHash char(64)
+}

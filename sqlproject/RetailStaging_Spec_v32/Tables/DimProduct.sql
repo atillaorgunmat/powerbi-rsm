@@ -1,0 +1,20 @@
+CREATE TABLE dbo.DimProduct (
+    DimProductSK   INT IDENTITY(1,1) PRIMARY KEY,
+    ProductID      INT          NOT NULL,
+    ProductName    NVARCHAR(60) NOT NULL,
+    CategoryKey    INT          NOT NULL,
+    SubCategoryKey INT          NOT NULL,
+    SupplierID     INT          NOT NULL,
+    ReorderLevel   SMALLINT     NOT NULL,
+    UnitCost       DECIMAL(7,2) NOT NULL,
+    UnitPrice      DECIMAL(7,2) NOT NULL,
+    Status         NVARCHAR(15) NULL,
+    ValidFrom      DATE         NOT NULL,
+    ValidTo        DATE         NOT NULL DEFAULT ('9999-12-31'),
+    IsCurrent      BIT          NOT NULL DEFAULT (1),
+    UNIQUE (ProductID, ValidFrom),
+    LoadDate       DATETIME     NOT NULL DEFAULT (GETUTCDATE()),
+    SourceSystem   NVARCHAR(50) NOT NULL DEFAULT ('UNKNOWN')
+                   CHECK (SourceSystem IN ('POS','ERP','CRM','CSV')),
+    RecordHash     NVARCHAR(64) NULL CHECK (RecordHash IS NULL OR LEN(RecordHash)=64)
+);
