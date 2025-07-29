@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build">
+  <Sdk Name="Microsoft.Build.Sql" Version="1.0.0" />
+  <PropertyGroup>
+    <Name>RetailStaging_Spec_v32</Name>
+    <ProjectGuid>{0048B7D9-5BBD-4C6B-BAF6-1A7099D87353}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <ModelCollation>1033, CI</ModelCollation>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Exclude seed & permission scripts from the build -->
+    <Build Remove="Permision_RemoteSQLUser.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\PostDeployment/ZZ_stub.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".vscode\tasks.json" />
+    <None Remove="Scripts\PostDeployment\01_DimSourceSystem_seed.sql" />
+    <None Remove="Scripts\PostDeployment\01_DimSourceSystem_seed.sql" />
+    <None Remove="Scripts\PostDeployment\01_DimSourceSystem_seed.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\PostDeployment" />
+  </ItemGroup>
+  <!--
+  <ItemGroup>
+    <PostDeploy Include="Scripts\PostDeployment/01_DimSourceSystem_seed.sql" />
+  </ItemGroup>
+  
+  -->
+  <Target Name="BeforeBuild">
+    <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
+  </Target>
+  <!-- === T-0031b hotfix: prevent migration/deployment scripts from compiling === -->
+<ItemGroup>
+  <!-- Treat every .sql under Scripts/migration_logs AND out3_CurrentSchema.sql as non-build -->
+  <None Include="Scripts\migration_logs\**\*.sql" />
+  <None Include="Scripts\out3_CurrentSchema.sql" />
+</ItemGroup>
+<!-- ======================================================================== -->
+<!-- ========== T-0031b hot-fix: exclude deployment logs ========== -->
+<ItemGroup>
+  <!-- Ignore everything under the disabled migration folder -->
+  <None Include="Scripts\migration_logs_DISABLED\**\*.sql" />
+  <!-- Belt-and-braces: ignore any stray file called out3_CurrentSchema.sql anywhere -->
+  <None Include="Scripts\**\out3_CurrentSchema.sql" />
+</ItemGroup>
+<!-- ============================================================= -->
+</Project>

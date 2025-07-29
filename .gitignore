@@ -18,3 +18,19 @@ obj/
 landing.zip
 sqlproject/**/bin/
 sqlproject/**/obj/
+
+# helper scripts
+cleanup.sh
+finish_cleanup.sh
+
+ChattyDocuments/
+Depreceated/
+ETL_Audit_Columns_Strategy.md
+KPI List v2.0*
+KPI_Cards v2.0.md
+Retail Data Model.md
+RetailStaging_Spec_v32.xml
+SCD_Strategy.md
+Snapshot_Strategy.md
+deploy_RetailStaging.sql
+project_tree.txt

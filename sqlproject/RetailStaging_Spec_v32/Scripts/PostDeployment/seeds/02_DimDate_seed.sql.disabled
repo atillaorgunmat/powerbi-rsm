@@ -1,0 +1,27 @@
+/* DimDate seeding – aligns with Data-Spec v3.2 */
+IF NOT EXISTS (SELECT 1 FROM dbo.DimDate)
+BEGIN
+    PRINT 'Seeding DimDate…';
+    WITH d AS (
+        SELECT CAST('2023-01-01' AS DATE) AS D
+        UNION ALL SELECT DATEADD(DAY,1,D) FROM d WHERE D < '2025-12-31'
+    )
+    INSERT INTO dbo.DimDate
+          (DateID,  FullDate,
+           Year,    Quarter,
+           MonthNo, MonthName,
+           DayOfWeek,
+           LoadDate, SourceSystem)
+    SELECT CONVERT(INT, FORMAT(D,'yyyyMMdd'))           AS DateID,
+           D                                           AS FullDate,
+           DATEPART(year,    D)                        AS Year,
+           DATEPART(quarter, D)                        AS Quarter,
+           DATEPART(month,   D)                        AS MonthNo,
+           DATENAME(month,   D)                        AS MonthName,
+           DATENAME(weekday, D)                        AS DayOfWeek,
+           GETUTCDATE()                                AS LoadDate,
+           'CSV'                                       AS SourceSystem
+    FROM d
+    OPTION (MAXRECURSION 1100);
+END
+GO

@@ -1,0 +1,58 @@
+/* 02_LookupSeeds.sql — idempotent lookup dimension seeds */
+
+/* ===== DimSourceSystem ===== */
+IF NOT EXISTS (SELECT 1 FROM dbo.DimSourceSystem WHERE SourceSystemCode = 'POS')
+BEGIN
+    INSERT INTO dbo.DimSourceSystem (SourceSystemCode, Description)
+    VALUES ('POS','Point-of-Sale CSV');
+END
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.DimSourceSystem WHERE SourceSystemCode = 'ERP')
+BEGIN
+    INSERT INTO dbo.DimSourceSystem (SourceSystemCode, Description)
+    VALUES ('ERP','ERP Extract');
+END
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.DimSourceSystem WHERE SourceSystemCode = 'CRM')
+BEGIN
+    INSERT INTO dbo.DimSourceSystem (SourceSystemCode, Description)
+    VALUES ('CRM','CRM JSON');
+END
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.DimSourceSystem WHERE SourceSystemCode = 'CSV')
+BEGIN
+    INSERT INTO dbo.DimSourceSystem (SourceSystemCode, Description)
+    VALUES ('CSV','Ad-hoc CSV upload');
+END
+GO
+
+/* ===== DimPaymentType ===== */
+IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'DimPaymentType')
+    CREATE TABLE dbo.DimPaymentType (PaymentTypeID INT PRIMARY KEY, PaymentTypeName NVARCHAR(30));
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.DimPaymentType WHERE PaymentTypeID = 1)
+    INSERT INTO dbo.DimPaymentType (PaymentTypeID, PaymentTypeName) VALUES
+    (1,'Cash'),(2,'Credit'),(3,'Debit'),(4,'Mobile');
+GO
+
+/* ===== DimCategory & DimSubCategory ===== */
+IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'DimCategory')
+    CREATE TABLE dbo.DimCategory (CategoryKey INT PRIMARY KEY, CategoryName NVARCHAR(40));
+GO
+IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'DimSubCategory')
+    CREATE TABLE dbo.DimSubCategory (
+        SubCategoryKey INT PRIMARY KEY,
+        SubCategoryName NVARCHAR(40),
+        CategoryKey INT REFERENCES dbo.DimCategory(CategoryKey)
+    );
+GO
+IF NOT EXISTS (SELECT 1 FROM dbo.DimCategory WHERE CategoryKey = 10)
+BEGIN
+    INSERT INTO dbo.DimCategory (CategoryKey, CategoryName) VALUES
+        (10,'Electronics'),(20,'Apparel'),(30,'Home');
+    INSERT INTO dbo.DimSubCategory (SubCategoryKey, SubCategoryName, CategoryKey) VALUES
+        (100,'Phones',10),(101,'TVs',10),
+        (200,'Mens',20),(201,'Womens',20),
+        (300,'Kitchen',30),(301,'Furniture',30);
+END
+GO

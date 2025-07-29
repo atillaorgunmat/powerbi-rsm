@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" Condition="'$(NetCoreBuild)' != 'true' AND '$(SQLDBExtensionsRefPath)' != ''" />
+  <PropertyGroup>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <ProjectVersion>2.0</ProjectVersion>
+    <Name>RetailStaging_Spec_v32</Name>
+    <RootNamespace>RetailStaging_Spec_v32</RootNamespace>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileSchemaName>dbo</DefaultFileSchemaName>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <SqlServerDatabaseSchemaOptions>DisableVarDecimalStorageFormat,EnableContainedDatabaseAuthentication</SqlServerDatabaseSchemaOptions>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <CodePage>65001</CodePage>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <BuildDirectory>$(OutDir)DB\</BuildDirectory>
+    <DeployScriptFileName>RetailStaging_Spec_v32.sql</DeployScriptFileName>
+    <DeployTarget>RetailStaging_Spec_v32</DeployTarget>
+    <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    <DefaultCollationName>SQL_Latin1_General_CP1_CI_AS</DefaultCollationName>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <EnableStrictValidation>False</EnableStrictValidation>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <SqlServerVerifyCollation>True</SqlServerVerifyCollation>
+    <AllowIncompatiblePlatform>True</AllowIncompatiblePlatform>
+    <ProjectGuid>{00000000-0000-0000-0000-000000000000}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Exclude seed & permission scripts from the build -->
+    <Build Remove="Permision_RemoteSQLUser.sql" />
+  </ItemGroup>
+  <!-- ===== HOT‑FIX T‑0031b‑R – tighten Build rules ===== -->
+  <!-- 1) Remove / comment‑out ANY existing  <Build Include="Scripts\**\*.sql"/> -->
+  <!--    ( keep the line here for historic diff, but disable it )              -->
+  <!-- <Build Include="Scripts\**\*.sql" />                                      -->
+  <!-- 2) Explicit object folders we DO want compiled -->
+  <ItemGroup>
+    <Build Include="Tables\**\*.sql" />
+    <Build Include="Views\**\*.sql" />
+    <Build Include="Functions\**\*.sql" />
+    <Build Include="StoredProcedures\**\*.sql" />
+  </ItemGroup>
+  <!-- 0) Remove every .sql under Scripts from default build -->
+  <ItemGroup>
+    <Build Remove="Scripts\**\*.sql" />
+  </ItemGroup>
+  <!-- 3) Anything under migration_logs[_DISABLED] NEVER compiles -->
+  <ItemGroup>
+    <None Include="migrations\**\*.sql" />
+    <None Include="seeds\**\*.sql" />
+    <None Include="scripts\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Condition="'$(NetCoreBuild)' == 'true'">
+      <Version>1.0.0</Version>
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" Condition="'$(NetCoreBuild)' == 'true'" />
+  <Target Name="BeforeBuild">
+    <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
+  </Target>
+</Project>
