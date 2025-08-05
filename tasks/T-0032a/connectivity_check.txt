@@ -1,0 +1,9 @@
+=== NC reachability ===
+Connection to 20.117.181.28 port 1433 [tcp/ms-sql-s] succeeded!
+=== Login test ===
+           
+-----------
+          1
+
+(1 rows affected)
+=== DDL test ===
