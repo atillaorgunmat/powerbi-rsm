@@ -1,0 +1,123 @@
+## Error Registry
+# This file defines the standard error tags used in the Q‑Chain project.  Use
+# error_blocker_tags to denote codes that block progress until resolved and
+# error_warn_tags for non-blocking warnings.  Under `errors` define each code
+# with its severity, description and typical tests or detection methods.
+
+error_blocker_tags:
+  - DATA_LOSS
+  - FK_ORPHANS
+  - SPEC_MISMATCH
+  - SECURITY_ACL
+  # Human error codes that represent critical issues which block progress
+  - HE-ASSUM-UNTST     # high‑risk assumption not tested
+  - HE-DEP-MISS        # a required dependency is missing
+  - HE-SEC-PRIV        # privacy or security review not completed
+  - HE-COMPL-UNK       # compliance considerations unknown or ignored
+  - HE-ETH-REVIEW      # ethical review not performed when required
+  - HE-DEC-1OPT        # only one 'how' option provided for a high‑impact decision
+
+error_warn_tags:
+  - NAMING_CONVENTION
+  - PERFORMANCE_SMELL
+  - DOC_DRIFT
+  # Human error codes that warn about best‑practice issues but do not block
+  - HE-MECE            # what/errors lists are not MECE
+  - HE-EST-RISK        # unrealistic estimates or unmitigated risks
+  - HE-CTX-LOSS        # loss of context or missing narrative
+  - HE-FACT-CONTRA     # conflicting facts detected
+  - HE-VERSION-GAP     # version compatibility gap not addressed
+
+errors:
+  DATA_LOSS:
+    severity: blocker
+    description: "Potential or observed loss of source or warehouse data."
+    typical_tests:
+      - "row count deltas > tolerance"
+      - "null explosion on key columns"
+  FK_ORPHANS:
+    severity: blocker
+    description: "Foreign key violations or orphaned fact rows."
+    typical_tests:
+      - "Foreign key integrity checks in CI"
+  SPEC_MISMATCH:
+    severity: blocker
+    description: "Landing files diverge from the Data Spec (columns or types)."
+    typical_tests:
+      - "schema_lint.py against Data-Spec"
+  SECURITY_ACL:
+    severity: blocker
+    description: "Landing folders or database objects have incorrect access control lists."
+    typical_tests:
+      - "ACL audit script in deployment pipeline"
+  NAMING_CONVENTION:
+    severity: warn
+    description: "Files or objects use non-ASCII characters, spaces or non-standard naming."
+    typical_tests:
+      - "filename audit script"
+  PERFORMANCE_SMELL:
+    severity: warn
+    description: "Query or index patterns likely to degrade performance."
+    typical_tests:
+      - "benchmark regression against baseline"
+  DOC_DRIFT:
+    severity: warn
+    description: "Documentation does not match the implemented schema or logic."
+    typical_tests:
+      - "doc generation diff against live schema"
+  # Human Error Codes
+  HE-ASSUM-UNTST:
+    severity: blocker
+    description: "A high‑risk assumption has been noted but not validated via tests."
+    typical_tests:
+      - "Check assumption status in assumption nodes; run pytest if test_cmd is defined"
+  HE-DEP-MISS:
+    severity: blocker
+    description: "A required dependency for this question is missing or unanswered."
+    typical_tests:
+      - "Inspect the 'depends' array and verify each referenced question is answered"
+  HE-SEC-PRIV:
+    severity: blocker
+    description: "Potential privacy or security issue has not been reviewed."
+    typical_tests:
+      - "Confirm completion of security/privacy review checklist"
+  HE-COMPL-UNK:
+    severity: blocker
+    description: "Compliance requirements are unknown or have not been considered."
+    typical_tests:
+      - "Check that compliance references and assessments are documented"
+  HE-ETH-REVIEW:
+    severity: blocker
+    description: "Ethical considerations or reviews have not been conducted."
+    typical_tests:
+      - "Confirm that the ethical review has been completed for the question's scope"
+  HE-DEC-1OPT:
+    severity: blocker
+    description: "Only one 'how' option provided for a question marked with high decision importance."
+    typical_tests:
+      - "If decision_importance is high, verify that two 'how' options exist or that the HE-DEC-1OPT tag is set."
+  HE-MECE:
+    severity: warn
+    description: "MECE principle violated: bullets overlap or miss necessary categories."
+    typical_tests:
+      - "Review 'what' and 'errors' lists for overlapping or missing items"
+  HE-EST-RISK:
+    severity: warn
+    description: "Estimates or risk assessments are unrealistic or unaddressed."
+    typical_tests:
+      - "Compare time budgets against historical averages"
+  HE-CTX-LOSS:
+    severity: warn
+    description: "Important context or narrative has been lost or not provided."
+    typical_tests:
+      - "Check that 'why', 'how' and detail_ref provide sufficient context"
+  HE-FACT-CONTRA:
+    severity: warn
+    description: "Conflicting facts or contradictory information appear in the question node."
+    typical_tests:
+      - "Cross-reference key facts in 'what' and 'assumptions' for contradictions"
+  HE-VERSION-GAP:
+    severity: warn
+    description: "Version compatibility or upgrade considerations have not been addressed."
+    typical_tests:
+      - "Verify 'compatibility_ref' is set when version changes are involved"

@@ -1,0 +1,72 @@
+## Tests Manifest
+# This file records diagnostic tests across the Q‑Chain.  Each entry
+# identifies the test, the question it relates to, describes what it
+# verifies, the expected outcome, the actual result once run and a
+# status indicating whether the test is pending or has passed/failed.
+
+[
+  {
+    "id": "T-011-01",
+    "question_id": "Q-011",
+    "description": "Check if SQL Express is installed and running",
+    "expected": "SQL Express instance running",
+    "result": null,
+    "status": "pending"
+  },
+  {
+    "id": "T-011-02",
+    "question_id": "Q-011",
+    "description": "Verify access to Fabric and ability to create a warehouse",
+    "expected": "Successful Fabric connection and warehouse creation",
+    "result": null,
+    "status": "pending"
+  },
+  {
+    "id": "T-011-03",
+    "question_id": "Q-011",
+    "description": "Confirm sample data volume fits within free tier capacity",
+    "expected": "Data volume within free tier limits",
+    "result": null,
+    "status": "pending"
+  },
+  {
+    "id": "T-013-01",
+    "question_id": "Q-013",
+    "description": "List /mnt/data to verify project files are mounted",
+    "expected": "/mnt/data lists project files",
+    "result": null,
+    "status": "pending"
+  },
+  {
+    "id": "T-013-02",
+    "question_id": "Q-013",
+    "description": "Check that reading 256 characters from a file succeeds",
+    "expected": "Reads 256 characters successfully",
+    "result": null,
+    "status": "pending"
+  },
+  {
+    "id": "T-013-03",
+    "question_id": "Q-013",
+    "description": "Audit filenames to ensure no spaces or non-ASCII characters",
+    "expected": "No offending names detected",
+    "result": null,
+    "status": "pending"
+  },
+  {
+    "id": "T-013-04",
+    "question_id": "Q-013",
+    "description": "Verify Google Drive folder contents are visible via connector",
+    "expected": "Files visible by folder ID",
+    "result": null,
+    "status": "pending"
+  },
+  {
+    "id": "T-013-05",
+    "question_id": "Q-013",
+    "description": "Ensure files can be copied to /mnt/data/drive-import/ via connector",
+    "expected": "Files copied to /mnt/data/drive-import/",
+    "result": null,
+    "status": "pending"
+  }
+]

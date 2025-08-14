@@ -1,0 +1,17 @@
+## Assumptions for Q‑013
+
+- id: A-013-01
+  type: environment
+  text: "All project I/O will use /mnt/data as the canonical workspace."
+  high_risk: false
+  check_type: text
+  test_cmd: null
+  status: planned
+
+- id: A-013-02
+  type: access
+  text: "Google Drive connector has read access to the provided folder ID."
+  high_risk: true
+  check_type: text
+  test_cmd: "List files by folder ID and assert count >= 5"
+  status: planned

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "A-008-01",
+    "type": "documentation",
+    "text": "The ETL Audit Columns Strategy v2.1 document represents the final rules for audit columns and meta-table design.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-008-02",
+    "type": "design",
+    "text": "The Integration Design v1.0 document encompasses all source systems and their extraction methods.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-008-03",
+    "type": "design",
+    "text": "The SCD Strategy and Snapshot Strategy documents (v2.1) align with project requirements and cover all dimension and fact loading scenarios.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  }
+]

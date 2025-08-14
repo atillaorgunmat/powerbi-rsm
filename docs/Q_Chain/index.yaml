@@ -1,0 +1,31 @@
+roots:
+  - Q-ROOT  # root of the Q‑Chain
+shards:
+  Q-ROOT: q/Q-ROOT.yaml  # shard containing Q‑ROOT and its subtree
+next_child_index:
+  Q-ROOT: 14  # next child counter for Q‑ROOT (next available after Q‑013)
+settings:
+  default_kind: discovery
+  delivery_requires_metric: conditional
+  appetite_default: "1d"
+  shard_line_threshold: 400
+  total_line_warn: 1000
+  dual_proposal_on_high_importance: smart
+  # Path in Google Drive for weekly backups of this project. Adjust <project-name> accordingly.
+  projects_backup_path: "Drive/ProjectsBackups/retail-analytics-project"
+  # Human‑error gating lists. Codes in error_blocker_tags prevent a node from
+  # being marked answered at confirm; codes in error_warn_tags produce warnings.
+  error_blocker_tags:
+    - HE-ASSUM-UNTST
+    - HE-DEP-MISS
+    - HE-SEC-PRIV
+    - HE-COMPL-UNK
+    - HE-ETH-REVIEW
+    - HE-DEC-1OPT
+  error_warn_tags:
+    - HE-MECE
+    - HE-EST-RISK
+    - HE-CTX-LOSS
+    - HE-FACT-CONTRA
+    - HE-VERSION-GAP
+activity: []  # optional activity log for AI to record general stats

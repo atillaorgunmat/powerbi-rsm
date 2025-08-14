@@ -1,0 +1,250 @@
+
+Project Q‑Chain Framework (Context‑Agnostic Edition)
+
+This document defines a question‑centric methodology for managing any project with ChatGPT.  The process is designed for solo users and emphasises clarity, atomic changes and explicit capture of context, risks and outcomes.  It removes project‑specific examples so that it can be applied across domains.
+
+## High‑Level Concept
+
+Express every piece of work as a **question**.  A question becomes a node in a tree (the *q‑chain*) and has five core fields: **Why**, **What**, **Assumptions**, **Errors** and **How**.  The **Why** describes the value or motivation behind the question (≤ 120 characters).  **What** is a MECE (mutually exclusive & collectively exhaustive) bullet list that defines “done.”  **Assumptions** are facts you rely on; high‑risk assumptions may include a `test_cmd` and should be validated via PyTest or a one‑liner check.  **Errors** capture anticipated failure modes (a pre‑mortem).  **How** is a concise approach (≤ 150 words); if longer, store the details in `/details/<Q‑ID>.md` and set `detail_ref` accordingly.
+
+Each question also records metadata: a unique ID, a parent ID (or `null` for roots), a `status` (`unasked`, `asked`, `answered` or `needs‑revision`), `kind` (`discovery` or `delivery`), `decision_importance` (`low`, `medium` or `high`), optional `goal_id` and `metrics`, a `version` counter, and an ordered `lessons` array.  Delivery nodes may include a `metric_result` when closing the question.
+
+### Honesty & Tool Use
+
+* **Honesty:** Neither you nor ChatGPT should fabricate answers or guess when information is missing.  If a request lacks critical details, either assume a reasonable default (and record it in the `assumptions` field) or ask a concise clarifying question.  Do not generate solutions that *appear* correct but conceal gaps or missing dependencies.
+
+* **Tool Use:** Use whiteboard tools or canvases only for brainstorming and visualising relationships.  **Do not** edit the canonical data with them.  All decisions, dependencies and metadata changes must be applied in YAML using the commands defined here.  When you need a visual overview, ask ChatGPT for a `view`; views are regenerated from YAML and remain read‑only.
+
+### Error‑Handling Protocol — Atomic Testing Rule
+
+When an unexpected error or ambiguous behaviour occurs (during patching, confirming or roadmap operations), follow these steps:
+
+1. **Pause & Hypothesise:** List up to four plausible root‑cause hypotheses that are specific and testable (e.g. “file path wrong”, “syntax error in YAML”, “insufficient permissions”).
+2. **Design Atomic Tests:** For each hypothesis, craft an idempotent one‑liner command labelled `T1`, `T2`, … that isolates the issue without side effects (a read, parse or dry‑run check).
+3. **Run & Log:** Execute each test.  Capture the results in a table (columns: `Test`, `Expected`, `Result`, `Key Output`) in a diagnostics document.  Store this in `/details/<Q‑ID>_tests.md` and set the node’s `diagnostic_ref` to that path.
+4. **Derive Rule or Fix:** Choose the confirmed hypothesis and implement the appropriate fix.  If the fix reveals a systemic issue, record a lesson in the node’s `lessons` array and, if useful, update this framework document.
+
+This protocol ensures systematic diagnostics and preserves evidence for future troubleshooting.
+
+## File Structure
+
+All files live in the ChatGPT Projects pane and follow this layout:
+
+```
+index.yaml              # routes to shards, next child counters, global settings and backup info
+q/                      # shards of question nodes (one file per root or large subtree)
+  Q-ROOT.yaml
+  Q-XXX.yaml
+details/                # optional long HOW documents (>150 words) per node
+tests/                  # PyTest scripts for high‑risk assumptions (use text checks otherwise)
+generated/              # auto‑generated mind map and docs (read‑only to AI)
+governance/ai_instructions.md  # customised instructions for ChatGPT
+goals.yaml              # optional – defines goals/metrics for delivery questions
+```
+
+Key points:
+
+* **Sharding:** When a shard grows beyond ~400 lines, move large subtrees into their own file and update `index.yaml.shards`.  The `index.yaml.next_child_index` counters ensure deterministic IDs of the form `<parentID>-<n>`.
+* **Source of Truth:** The project files are the canonical source.  The `/generated` folder is overwritten when you confirm changes; never edit it directly.
+* **Backups:** At least weekly, download a ZIP of your Project files and place it in your backup location (e.g. `Drive/ProjectsBackups/<project-name>/YYYY‑MM‑DD_project.zip`).  Retain the latest four backups and prune older ones.
+
+## Node Schema (simplified)
+
+Each question entry in any `q/*.yaml` follows this structure (fields prefaced by `#` are comments):
+
+```
+- id: Q-XXX                # unique question ID
+  text: "Describe the question"  # the question itself
+  level: 0                # depth (root = 0)
+  parent: null or Q-YYY   # the parent question
+  # Dependencies & gating
+  depends: []             # list of prerequisite Q-IDs; unanswered deps mark the node as blocked
+  block_on_dep: false     # if true, cannot answer until deps are resolved; if false, may answer provisionally
+  status: unasked         # unasked | asked | answered | needs-revision
+  kind: discovery          # discovery | delivery
+  decision_importance: low  # low | medium | high
+  why: "…"                # ≤ 120 chars
+  what: ["…"]             # MECE bullet list
+  assumptions: []         # list of assumption IDs
+  errors: []              # list of anticipated failure modes
+  how: null               # ≤ 150 words; or null when detail_ref used
+  detail_ref: null        # points to /details/<id>.md when needed
+  diagnostic_ref: null    # points to /details/<id>_tests.md for atomic test logs
+  error_tags: []          # list of human error codes (HE-*)
+  module: null            # functional area (e.g. etl, model, ops)
+  component: null         # sub-area (e.g. loader, merge-proc)
+  change_ref: null        # path to a change-log entry (optional)
+  decision_ref: null      # path to a decision-log entry (optional)
+  validation_ref: null    # path to a mini validation block or script (optional)
+  compatibility_ref: null # path to a version compatibility matrix (optional)
+  start_date: null        # planned start date (YYYY-MM-DD)
+  end_date: null          # planned end date (YYYY-MM-DD)
+  # Outcome fields
+  goal_id: null           # optional; refers to a goal in goals.yaml
+  metrics: []             # list of metric names; required only when gating applies
+  metric_result: null     # optional; captured when delivery outcome matters
+  # Pace tracking (passive reporting)
+  appetite: null          # optional time budget (e.g. "1d")
+  time_log: []            # list of {start, end, minutes}; AI does not prompt for this
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  decision: null          # one-line ADR recorded when answering
+  lessons: []             # list of {ts, author, text≤140}
+  children: []            # list of child question IDs
+  version: 1              # increments on each confirm
+```
+
+Assumption nodes reside in the same shards and use fields: `id`, `type: assumption`, `text`, `high_risk` (boolean), `check_type: text|pytest`, `test_cmd` (optional), and `status` (`noted`, `pending`, `passed`, `failed`).  Use PyTest or a one‑liner command only when `high_risk: true`; otherwise rely on simple text checks.
+
+### Additional Guidelines (Context Agnostic)
+
+These guidelines enhance the base schema to support complex projects:
+
+* **Anchor Nodes and Modules:** Introduce a top‑level “anchor” node for each major domain (e.g. `etl`, `model`, `quality`, `operations`, `governance`).  Use the `module` and `component` fields on child questions to classify work.  Anchor nodes act as stable entry points and group related questions.
+
+* **Guardrail Questions:** For standards or conventions that apply across many questions (naming conventions, security ACLs, audit columns, CI/CD pipelines), create dedicated discovery questions (called “guardrails”).  Store the rule and associated tests in that node.  Other questions should list the guardrail ID in their `depends` array.  Updating a guardrail reveals its downstream impact via dependencies.
+
+* **Assumption Discipline:** When drafting the `what` list, ask yourself: “What must be true for this to succeed?”  Each non‑trivial unknown becomes an assumption with its own ID.  Mark assumptions with `high_risk: true` if failure could block progress or incur cost; attach a `test_cmd` that validates the assumption.  Unvalidated high‑risk assumptions should add an `HE-ASSUM-UNTST` tag to the question’s `error_tags` until they pass.
+
+* **Dual Proposals for High‑Impact Decisions:** For questions with `decision_importance: high`, propose at least two plausible `how` options.  If only one is provided, add the `HE-DEC-1OPT` tag to the question.  This encourages exploring alternatives for critical choices.
+
+* **Pre‑Confirm Linter:** Before calling `confirm`, run a quick check:
+  - Ensure `why` ≤ 120 chars and `how` ≤ 150 words (unless `detail_ref` is set).
+  - Verify `what` and `errors` are MECE (no duplicates).
+  - Check that each assumption ID has a file under `/assumptions/` with appropriate fields.
+  - If `decision_importance` is `high`, confirm that at least two `how` options exist or that `HE-DEC-1OPT` is set.
+  - Validate that codes in `error_tags` exist in your registry and that blocker tags are not present.
+  - Update `index.yaml.next_child_index` only after passing the linter.
+
+* **Outcome Metrics:** Only require `metric_result` when: (a) the question is a delivery and changes user‑visible behaviour or cost; (b) a `goal_id` is set; or (c) `decision_importance` is `high`.  Otherwise, metrics are optional.
+
+* **Lessons:** After answering a question, consider appending a lesson summarising what worked or failed.  Lessons accumulate lightweight insights over the project lifecycle.
+
+### Error Definitions & Manifests
+
+Errors listed in the `errors` array of a question are pre‑mortem risks you anticipate.  To manage them consistently across large projects, assign each error a unique **Error ID** of the form `E‑<questionID>-<n>` (e.g. `E‑011-02` for the second error defined in Q‑011).  For each new error, create a definition object with fields:
+
+- `id`: the error ID (string).
+- `text`: a concise description of the failure mode.
+- `high_risk`: boolean flag; set to `true` if the failure could block progress or incur cost.
+- `check_type`: either `text` or `script`, indicating whether a simple text check suffices or if a one‑liner test script (bash/PyTest) is needed.
+- `test_cmd`: optional; a one‑liner command to validate the presence of the failure condition when `high_risk: true`.
+- `status`: one of `noted`, `pending`, `passed`, `failed` (used mainly for assumptions but included for completeness).
+
+Store these definitions in an **Error Manifest** (`errors/errors.yaml`) to centralise risk tracking.  When you add an error to a question’s `errors` list, also append its definition to the manifest.  This allows auditing which high‑risk errors remain untested or unresolved and supports the Human‑Error Gate.
+
+Similarly, you can maintain a **Root Assumption Manifest** (`assumptions/A‑ROOT.yaml`) containing all assumptions across the project.  Each assumption object has fields `id`, `type: assumption`, `text`, `high_risk`, `check_type`, `test_cmd` and `status`.  Keeping a consolidated list aids in reviewing high‑risk assumptions and confirming that tests have been executed.
+
+Per‑question definitions (embedded in shards) take precedence; the manifests serve as secondary indices for review and backup.  Maintaining these manifests is optional for small projects but recommended once the number of assumptions or errors grows beyond a handful.
+
+### Test & Generated Manifests
+
+Diagnostic tests and auto‑generated artefacts can accumulate and overwhelm the file limit when stored individually.  To manage them:
+
+* **Tests:** Each atomic test for a question may be recorded directly in a Markdown file under `/details/` and referenced via `diagnostic_ref`.  Additionally, you can consolidate test metadata in a root manifest (`tests/tests_manifest.yaml`).  Each entry in this YAML file should include a unique test ID (`T‑<questionID>-<n>`), the `question_id` it relates to, a brief `description`, the `expected` outcome, the `result` (initially pending) and a `status` (`noted`, `pending`, `passed`, `failed`).  Maintaining this manifest aids auditing and ensures high‑risk assumptions are adequately tested.
+
+* **Generated artefacts:** Views such as mind maps, dependency graphs or Gantt charts generated via the `view` command reside in `/generated/`.  To track them without clutter, maintain a `generated/generated_manifest.yaml`.  Each entry should include a unique ID (e.g. `G‑<date>-<n>`), the generating question ID (optional), the `type` of artefact (`mindmap`, `deps`, `board`, `gantt`) and the relative `file` path.  This allows easy discovery of visual outputs without needing individual files counted in the working set.
+
+As with assumptions and errors, per‑question files remain canonical; manifests provide a consolidated index.  They are particularly useful when working sets must remain below file limits or when the project’s complexity grows.
+
+## Human Error Codes & Blocking
+
+Human mistakes are tracked via an `error_tags` array on each question.  Codes come from a global registry (e.g. `error_registry.yaml`) and are classified as **blocker** or **warning** in `index.yaml.settings`.  Example tags:
+
+* **Blockers:**
+  * `HE-ASSUM-UNTST` – High‑risk assumptions remain untested.
+  * `HE-DEP-MISS` – A necessary dependency is missing or unresolved.
+  * `HE-SEC-PRIV` – Security/privacy considerations are unknown.
+  * `HE-COMPL-UNK` – Compliance implications are unknown.
+  * `HE-ETH-REVIEW` – Ethical or fairness review missing.
+  * `HE-DEC-1OPT` – Only one `how` option provided for a high‑impact decision.
+
+* **Warnings:**
+  * `HE-MECE` – `what` or `errors` list contains overlapping or duplicated items.
+  * `HE-EST-RISK` – Delivery time or cost estimates are likely inaccurate.
+  * `HE-CTX-LOSS` – Context appears insufficient; child questions may be missing.
+  * `HE-FACT-CONTRA` – Facts in this question contradict existing decisions or specs.
+  * `HE-VERSION-GAP` – Schema or API versions may be incompatible.
+
+During `confirm`, the **Human‑Error Gate** runs: if any tag in `error_tags` is listed in `index.yaml.settings.error_blocker_tags`, the AI refuses to set `status: answered` and instead lists the blocking issues.  Tags in `error_warn_tags` produce warnings but do not block.  Extend the registry as your project uncovers new error classes.
+
+## Dependencies & Gating
+
+Each question can depend on one or more other questions.  List prerequisites in the `depends` array.  When a dependency remains unanswered, the node is considered *blocked*.  Use `block_on_dep` to control whether blocking is hard (`true`) or soft (`false`):
+
+* **Hard gating** (`block_on_dep: true`) means the node cannot be confirmed as `answered` until all dependencies are resolved.
+* **Soft gating** (`block_on_dep: false`) allows the node to be answered while dependencies remain pending; the answer is provisional and flagged for follow‑up.
+
+Choose gating based on whether upstream answers are truly required for downstream progress.
+
+## Index File
+
+`index.yaml` orchestrates the q‑chain.  It includes:
+
+```
+roots: [Q-ROOT]
+shards:
+  Q-ROOT: q/Q-ROOT.yaml
+next_child_index:
+  Q-ROOT: 1
+settings:
+  default_kind: discovery
+  delivery_requires_metric: conditional
+  appetite_default: "1d"
+  shard_line_threshold: 400
+  total_line_warn: 1000
+  dual_proposal_on_high_importance: smart
+  error_blocker_tags: ["HE-ASSUM-UNTST", "HE-DEP-MISS", "HE-SEC-PRIV", "HE-COMPL-UNK", "HE-ETH-REVIEW", "HE-DEC-1OPT"]
+  error_warn_tags: ["HE-MECE", "HE-EST-RISK", "HE-CTX-LOSS", "HE-FACT-CONTRA", "HE-VERSION-GAP"]
+  projects_backup_path: "Drive/ProjectsBackups/<project-name>"
+activity: []  # optional
+```
+
+Update `next_child_index` whenever new child questions are confirmed.  The `projects_backup_path` defines where weekly backups are stored.
+
+## Prompt Protocol (S.C.O.P.E‑Q)
+
+Use tags to structure messages to ChatGPT.  They make the conversation deterministic and allow the model to enforce the rules:
+
+| Tag | Meaning |
+| --- | ------- |
+| `S:` | Scope of the request – one or more `Q‑IDs` or `new`. |
+| `C:` | Command – one of `scaffold-full`, `scaffold-min`, `patch`, `confirm`, `roadmap`, `expand-what`, `answer`, `lesson`, `analysis`, `measure`, `view`. |
+| `O:` | Objective – human‑readable aim for context. |
+| `P:` | Parameters – modifications using the `fx.<field>` shorthand (e.g. `fx.what:+[...]`), new question settings (parent, kind, importance, appetite), optional `metric_result`, etc. |
+| `E:` | Expected artefacts – e.g. `patch & rationale` (default), `roadmap`, etc. |
+
+### Commands
+
+* **`scaffold-full`** – AI creates a full YAML stub (with `why`, `what`, `assumptions`, `errors`, `how`) for a new question and, if `decision_importance: high`, proposes two `how` options.  Unknowns can be marked `??`.
+* **`scaffold-min`** – AI returns just the `text` and `why` fields.
+* **`patch`** – Use `P: fx.<field>` to add, remove or overwrite values.  Examples: `fx.what:+["Add caching"]`, `fx.errors:-["Cache stampede"]`, `fx.how:"Rewrite query"`.
+* **`confirm`** – Commit the changes; AI increments `version`, writes to the shard, updates `index.yaml.next_child_index` and refreshes `/generated`.  No further edits are applied until the next `patch` + `confirm` cycle.
+* **`roadmap`** (or `expand-what`) – Convert complex `what` bullets (> 5 words) into 3–5 child questions with stubs.  The AI proposes children; you patch and confirm them.
+* **`answer`** – Fill the `answer` field and record a `metric_result` if outcome gating applies.  The node’s status becomes `answered` subject to blocking rules.
+* **`lesson`** – Append a lesson to the `lessons` array.  Use `P: lesson:"…"`.
+* **`analysis`** – Provide a summary or reflection on a node; optional.
+* **`measure`** – Create or update a measurement question when a `metric_result` is not yet available.
+* **`view`** – Generate a read‑only visualisation or table (e.g. mind map, dependency graph, status board, Gantt).  Use parameters like `type:<mindmap|deps|board|gantt>` and `depth:<N>`.
+
+### Stop Rules
+
+* The AI **never** writes to the file system until you send `C: confirm`.
+* At most **two `patch` cycles** per question before confirm; unresolved items should become child questions.
+* Child question count per roadmap call is capped at **five**; AI will ask you to split further if necessary.
+* Outcome metrics are required only when: (a) `kind: delivery` **and** the question changes user‑visible behaviour or cost, (b) a `goal_id` is set, or (c) `decision_importance` is `high`.  Otherwise they are optional suggestions.
+* Dual proposals (two `how` variants) appear when `decision_importance` is `high` or if history shows at least 20 % of recent questions were re‑opened.
+* AI defers `how` expansion only when a blocker exists: unresolved parent or dependency, or an untested high‑risk assumption.  Otherwise it will ask one clarifying question.
+* `what` and `errors` lists must be MECE; duplicates trigger a warning at confirm time.
+
+## Working a New Conversation – Example Flow
+
+1. **Create a new question** using `scaffold-full` or `scaffold-min`.  Provide scope and initial attributes via SCOPE‑Q tags.
+2. **Review & patch** the stub.  Use up to two `patch` commands to refine `what`, `assumptions`, `errors` or `how`.
+3. **Confirm** to commit the node; this writes to disk and updates counters.
+4. **Roadmap** complex `what` items into child questions.  Patch and confirm each child.
+5. **Answer**, **measure** and **lesson** as work progresses.  Use `analysis` to reflect on nodes.
+
+By following these rules, you construct a precise, auditable and context‑rich q‑chain that scales across domains and retains integrity even when tasks and dependencies grow complex.

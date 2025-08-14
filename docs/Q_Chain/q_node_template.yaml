@@ -1,0 +1,44 @@
+## Q‑Node YAML Template
+# This file defines the canonical structure for a question node in the Q‑Chain.  Each
+# node should include all fields shown below.  Values marked with `example` are
+# illustrative and should be replaced with question‑specific data.
+
+id: Q-XXX
+text: "Your question here"
+level: 1             # 0=root
+parent: Q-ROOT       # or null for root
+status: unasked      # unasked | asked | answered | needs-revision
+kind: discovery      # discovery | delivery
+decision_importance: medium  # low | medium | high
+why: "Purpose ≤120c"
+what:
+  - "MECE bullet"
+assumptions: []      # list of assumption IDs (e.g., A-001)
+errors: []           # list of anticipated risks
+how: null            # ≤150 words or null if using detail_ref
+detail_ref: null     # path to /details/ .md if how is long
+depends: []          # prerequisite question IDs
+block_on_dep: false  # true if the question cannot be closed until deps answered
+diagnostic_ref: null # path to /details/ _tests.md for atomic testing
+error_tags: []       # list of error codes defined in error_registry.yaml
+module: null         # functional module (e.g. marketing)
+component: null      # optional sub-component (e.g. ads)
+change_ref: null     # path to a change log entry
+decision_ref: null   # path to a decision log entry
+validation_ref: null # path to a validation script or doc
+compatibility_ref: null # path to a version compatibility matrix
+start_date: null     # YYYY-MM-DD if scheduled
+end_date: null       # YYYY-MM-DD if scheduled
+goal_id: null        # reference to a goal in goals.yaml
+metrics: []          # list of metric names
+metric_result: null  # structure capturing before/after when outcome gating
+appetite: null       # time allocation (e.g. "1d")
+pace:
+  estimate_min: null
+  actual_min: null
+  ratio: null
+time_log: []           # list of {start, end, minutes}; AI does not prompt for this
+decision: null       # one-line architectural decision record
+lessons: []          # array of short lesson strings
+children: []         # list of child question IDs
+version: 1

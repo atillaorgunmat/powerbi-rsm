@@ -1,0 +1,20 @@
+[
+  {
+    "id": "A-007-01",
+    "type": "data",
+    "text": "The data model and DBML documents correspond to the same version and reflect the current schema (v2.1).",
+    "high_risk": true,
+    "check_type": "text",
+    "test_cmd": "Compare the version numbers and schema definitions between Retail_Data_Model_v2.1.md and Retail_Data_Model_v2.1.dbml.txt",
+    "status": "planned"
+  },
+  {
+    "id": "A-007-02",
+    "type": "data",
+    "text": "The data specification sheet and data design documents are consistent with the data model and contain no missing columns or mismatches.",
+    "high_risk": true,
+    "check_type": "text",
+    "test_cmd": "Cross-check column names and data types between Data-Spec_Sheet_v3.3.1.md, Data_Design_v1.0.md, and the data model docs",
+    "status": "planned"
+  }
+]

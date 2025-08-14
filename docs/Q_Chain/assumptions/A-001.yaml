@@ -1,0 +1,10 @@
+## Assumption A-001
+# All uploaded project files are accessible and accurate.
+
+- id: A-001
+  type: environment
+  text: "All uploaded project files are accessible and accurate."
+  high_risk: false
+  check_type: text
+  test_cmd: null
+  status: planned
