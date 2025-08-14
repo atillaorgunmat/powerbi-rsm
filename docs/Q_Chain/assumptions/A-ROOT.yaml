@@ -1,0 +1,124 @@
+## Combined Assumptions
+# This file consolidates all assumption definitions used across the Q‑Chain.  Each entry
+# retains its original ID (e.g. A‑001, A‑007‑01) and metadata.  Having a root file
+# makes it easy to review all assumptions at once without opening multiple files.
+
+[
+  {
+    "id": "A-001",
+    "type": "environment",
+    "text": "All uploaded project files are accessible and accurate.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-007-01",
+    "type": "data",
+    "text": "The data model and DBML documents correspond to the same version and reflect the current schema (v2.1).",
+    "high_risk": true,
+    "check_type": "text",
+    "test_cmd": "Compare the version numbers and schema definitions between Retail_Data_Model_v2.1.md and Retail_Data_Model_v2.1.dbml.txt",
+    "status": "planned"
+  },
+  {
+    "id": "A-007-02",
+    "type": "data",
+    "text": "The data specification sheet and data design documents are consistent with the data model and contain no missing columns or mismatches.",
+    "high_risk": true,
+    "check_type": "text",
+    "test_cmd": "Cross-check column names and data types between Data-Spec_Sheet_v3.3.1.md, Data_Design_v1.0.md, and the data model docs",
+    "status": "planned"
+  },
+  {
+    "id": "A-008-01",
+    "type": "documentation",
+    "text": "The ETL Audit Columns Strategy v2.1 document represents the final rules for audit columns and meta-table design.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-008-02",
+    "type": "design",
+    "text": "The Integration Design v1.0 document encompasses all source systems and their extraction methods.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-008-03",
+    "type": "design",
+    "text": "The SCD Strategy and Snapshot Strategy documents (v2.1) align with project requirements and cover all dimension and fact loading scenarios.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-010-01",
+    "type": "documentation",
+    "text": "The README_landing and Storyboard documents capture all environment setup details, naming conventions, retention policies and lessons learned.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-011-01",
+    "type": "environment",
+    "text": "SQL Express is installed on the VM or accessible through remote connection.",
+    "high_risk": true,
+    "check_type": "script",
+    "test_cmd": "Check if the SQL Express service is running or available via sqlcmd",
+    "status": "planned"
+  },
+  {
+    "id": "A-011-02",
+    "type": "access",
+    "text": "Microsoft Fabric’s free warehouse tier is accessible and can be used as the data warehouse target.",
+    "high_risk": true,
+    "check_type": "text",
+    "test_cmd": "Attempt to connect to Fabric and verify warehouse creation",
+    "status": "planned"
+  },
+  {
+    "id": "A-011-03",
+    "type": "environment",
+    "text": "Sample data volumes and resource utilisation fit within the limits of the chosen SQL engine (SQL Express or Fabric free tier).",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-012-01",
+    "type": "environment",
+    "text": "All project documents are accessible and can be processed to create summary YAMLs.",
+    "high_risk": true,
+    "check_type": "text",
+    "test_cmd": "List all 19 project files and confirm they can be opened and read",
+    "status": "planned"
+  },
+  {
+    "id": "A-013-01",
+    "type": "environment",
+    "text": "All project I/O will use /mnt/data as the canonical workspace.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  },
+  {
+    "id": "A-013-02",
+    "type": "access",
+    "text": "Google Drive connector has read access to the provided folder ID.",
+    "high_risk": true,
+    "check_type": "text",
+    "test_cmd": "List files by folder ID and assert count >= 5",
+    "status": "planned"
+  }
+]

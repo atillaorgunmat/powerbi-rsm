@@ -1,0 +1,719 @@
+## Q‑Chain root and initial questions for the retail analytics project
+
+# Root node defining the overall objective of the project and linking child questions.
+- id: Q-ROOT
+  text: "Set up the retail analytics project Q‑Chain"
+  level: 0
+  parent: null
+  status: asked
+  kind: discovery
+  decision_importance: medium
+  why: "Establish a structured, question‑centric plan for the data warehouse project"
+  what:
+    - "Define the project’s objective and initialise the Q‑Chain"
+    - "Spawn child questions covering document analysis, task identification and dependency mapping"
+  assumptions: []
+  errors:
+    - "Ambiguous scope could lead to missing tasks or misaligned priorities"
+  how: |
+    Create a root node capturing the overarching objective and break the work into child
+    questions. Use the W‑W‑A‑E‑H format to ensure scope, value and risk are explicit.  Assign
+    children to examine documents, derive tasks and map dependencies.  Confirm the root
+    once children are scaffolded.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: details/Q-011_tests.md
+  error_tags: []
+  module: planning
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "1d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children:
+    - Q-001
+    - Q-011
+    - Q-012
+    - Q-013
+  version: 1
+
+# Q‑001: Define Q‑Chain structure and document analysis plan
+- id: Q-001
+  text: "How should we structure the Q‑Chain to manage the retail data warehouse and analytics project based on the uploaded documents?"
+  level: 1
+  parent: Q-ROOT
+  status: asked
+  kind: discovery
+  decision_importance: medium
+  why: "Create a coherent plan that maps tasks, decisions and dependencies before execution"
+  what:
+    - "Review all 19 uploaded project files (vision, design docs, KPI lists, audit strategy, etc.)"
+    - "Identify major questions, tasks and deliverables needed to build the retail data warehouse and KPI dashboards"
+    - "Define dependencies and decision points across phases (ETL, modelling, dashboarding, governance)"
+  assumptions: []
+  errors:
+    - "Some files may be missing or contain outdated information"
+    - "Scope creep if tasks are not clearly bounded"
+  how: |
+    Systematically read each document and capture key requirements and decisions.  Break
+    the work into manageable child questions (e.g. document reviews, task derivation and
+    dependency mapping).  Use MECE bullets to avoid overlap and ensure completeness.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: planning
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "2d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children:
+    - Q-002
+    - Q-003
+    - Q-004
+    - Q-005
+  version: 2
+
+# Q‑002: Systematic review of project documents
+- id: Q-002
+  text: "How should we systematically review and summarise the content of all uploaded project files?"
+  level: 2
+  parent: Q-001
+  status: asked
+  kind: discovery
+  decision_importance: medium
+  why: "Extract key requirements, assumptions and decisions from each document"
+  what:
+    - "Classify files by type (vision/charter, data models/specs, ETL strategies, KPI definitions, operational docs)"
+    - "Read each category and summarise the main points, requirements and decisions"
+    - "Capture any ambiguous or missing information as follow‑up questions or assumptions"
+  assumptions:
+    - A-001
+    - A-007-01
+    - A-007-02
+  errors:
+    - "Misinterpreting technical details or missing critical information"
+    - "Information overload leading to incomplete summaries"
+  how: |
+    Group similar documents, then read them one by one, taking concise notes on purpose,
+    scope and decisions.  Use checklists to ensure no file is skipped and log ambiguities
+    or missing data as new assumptions or questions.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: planning
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "1d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children:
+    - Q-006
+    - Q-007
+    - Q-008
+    - Q-009
+    - Q-010
+  version: 2
+
+# Q‑003: Identify tasks and deliverables
+- id: Q-003
+  text: "What major tasks, deliverables and questions emerge from the project documents for building the retail data warehouse and analytics solution?"
+  level: 2
+  parent: Q-001
+  status: answered
+  kind: discovery
+  decision_importance: medium
+  why: "Derive a comprehensive list of actionable tasks and deliverables to guide execution"
+  what:
+    - "Compile tasks related to ETL meta tables, dimension seeding, merge procedures and staging loaders"
+    - "Identify higher‑level tasks like snapshot fact loading, SCD automation, performance benchmarking and dashboards"
+    - "List governance and operational deliverables such as CI/CD, documentation, KPI trace checks and runbook"
+  assumptions: []
+  errors:
+    - "Overlooking tasks hidden in technical notes or appendices"
+    - "Duplicating tasks or mixing deliverables with objectives"
+  how: |
+    Extract task names and descriptions from the Plan Zero roadmap, design documents and KPI
+    lists.  Organise them into categories (ETL, modelling, analytics, operations) to ensure
+    they are mutually exclusive and collectively exhaustive.  Cross‑check with the data
+    spec to ensure alignment.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: planning
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "1d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑004: Map dependencies and decision points
+- id: Q-004
+  text: "How should we map dependencies and decision points across the identified tasks and phases?"
+  level: 2
+  parent: Q-001
+  status: answered
+  kind: discovery
+  decision_importance: medium
+  why: "Sequence tasks correctly and make timely decisions to avoid rework"
+  what:
+    - "Determine prerequisite relationships between tasks (e.g., dimensions before facts, ETL before dashboards)"
+    - "Identify decision points that influence downstream work (e.g., audit column design, spec choices)"
+    - "Choose a method to represent and track dependencies (e.g., YAML depends field, Gantt view)"
+  assumptions: []
+  errors:
+    - "Misordered tasks leading to blockers or rework"
+    - "Missing a critical dependency or decision impacting later phases"
+  how: |
+    Analyse the list of tasks and deliverables, use dependency mapping techniques to connect
+    tasks, and document these relationships in the YAML depends field.  Plan decision gates
+    at logical milestones.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: planning
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "1d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑005: Plan rework and refinement
+- id: Q-005
+  text: "What roadmap should we follow to revisit and refine the Q‑Chain after the initial YAML compilation?"
+  level: 2
+  parent: Q-001
+  status: asked
+  kind: discovery
+  decision_importance: low
+  why: "Ensure there is a structured process for updating the Q‑Chain when new information arises or corrections are needed"
+  what:
+    - "Schedule a post‑review cycle to cross‑check the YAML graph against the finalised documents"
+    - "Identify triggers for rework, such as new files, updated requirements or errors discovered during implementation"
+    - "Define the update mechanism and version control strategy for refining the YAML graph"
+  assumptions: []
+  errors:
+    - "Overlooking rework needs, leading to stale or inaccurate project plans"
+    - "Performing unnecessary revisions that slow progress"
+  how: |
+    After completing the initial YAML, organise a review session to compare it with source
+    documents and stakeholder feedback.  Document discrepancies and prioritise updates, then
+    schedule a focused rework session to update the YAML graph with proper version tracking.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: planning
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "0.5d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑006: Review vision and charter documents
+- id: Q-006
+  text: "What are the key points and objectives described in the vision and charter documents?"
+  level: 3
+  parent: Q-002
+  status: answered
+  kind: discovery
+  decision_importance: low
+  why: "Ensure understanding of high‑level goals, scope and success criteria guiding the project"
+  what:
+    - "Read Vision.md, Project Charter.txt, plan_zero.yaml and project_charter.yaml"
+    - "Summarise the vision, objectives, scope and timeline"
+    - "Capture any strategic assumptions or constraints"
+  assumptions:
+    - A-001
+  errors:
+    - "Misalignment between vision and scope in different documents"
+    - "Missing a critical objective or assumption"
+  how: |
+    Carefully compare the vision and charter documents, note overarching goals and
+    constraints, and ensure they align.  Record discrepancies as follow‑ups or new
+    assumptions.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: model
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "0.5d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑007: Review data model and specifications
+- id: Q-007
+  text: "What data model structures and specifications are defined in the data‑model and spec documents?"
+  level: 3
+  parent: Q-002
+  status: asked
+  kind: discovery
+  decision_importance: low
+  why: "Understand the tables, relationships and data fields required for the warehouse"
+  what:
+    - "Review Retail_Data_Model_v2.1.md and Retail_Data_Model_v2.1.dbml.txt"
+    - "Review Data-Spec_Sheet_v3.3.1.md and Data_Design_v1.0.md"
+    - "Summarise entities, attributes, relationships and constraints"
+  assumptions:
+    - A-001
+    - A-007-01
+    - A-007-02
+  errors:
+    - "Misinterpreting entity relationships or missing key fields"
+    - "Spec mismatches between versions"
+  how: |
+    Parse the data model and DBML docs to extract entities and relationships; cross‑reference
+    with the data spec and design doc to ensure consistency; note any discrepancies for
+    resolution.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: etl
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "1d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑008: Review ETL strategies and integration approaches
+- id: Q-008
+  text: "What ETL strategies and integration approaches are outlined in the ETL and strategy documents?"
+  level: 3
+  parent: Q-002
+  status: asked
+  kind: discovery
+  decision_importance: low
+  why: "Capture the standards, procedures and best practices for loading and transforming data"
+  what:
+    - "Review ETL_Audit_Columns_Strategy_v2.1.md and Integration_Design_v1.0.md"
+    - "Review SCD_Strategy_v2.1.md and Snapshot_Strategy_2.1.md"
+    - "Review schema_lint.py for validation logic"
+  assumptions:
+    - A-001
+    - A-008-01
+    - A-008-02
+    - A-008-03
+  errors:
+    - "Overlooking crucial ETL rules or audit requirements"
+    - "Confusion between different strategy versions"
+  how: |
+    Extract key ETL patterns, audit requirements and integration workflows from the strategy
+    documents; summarise how SCDs and snapshots are handled; examine schema_lint.py to
+    understand validation rules.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: analytics
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "1d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑009: Review KPI and trace documents
+- id: Q-009
+  text: "What KPIs, metrics and definitions are provided in the KPI and trace documents?"
+  level: 3
+  parent: Q-002
+  status: asked
+  kind: discovery
+  decision_importance: low
+  why: "Ensure that all KPI definitions are well understood and can be implemented consistently"
+  what:
+    - "Review KPI List v3.0.md and KPI_Cards v3.0.md"
+    - "Review KPI_Trace_Matrix_v3.0.md and Data_KPI_Trace_Matrix_v3.0.md"
+    - "Summarise definitions, calculations, dimensions and fact mappings"
+  assumptions:
+    - A-001
+  errors:
+    - "Misinterpreting KPI formulas or omitting required dimensions"
+    - "Inconsistent KPI naming or definitions across documents"
+  how: |
+    Compile the list of KPIs, their formulas and associated dimensions/facts from the
+    documents; ensure they map back to the data model; highlight any ambiguities for
+    clarification.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: operations
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "0.5d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑010: Review landing and storyboard documents
+- id: Q-010
+  text: "What operational setup and lessons are captured in the landing and storyboard documents?"
+  level: 3
+  parent: Q-002
+  status: asked
+  kind: discovery
+  decision_importance: low
+  why: "Understand the environment setup, landing zone conventions and past lessons to inform future implementation"
+  what:
+    - "Review README_landing.md and Storyboard.md"
+    - "Review Plan zero.md and any related README files"
+    - "Summarise landing zone setup, retention policies, conventions and lessons learned"
+  assumptions:
+    - A-001
+    - A-010-01
+  errors:
+    - "Missing important operational nuance or configuration detail"
+    - "Not incorporating lessons learned into future tasks"
+  how: |
+    Read the landing and storyboard documents to extract environment setup details, naming
+    conventions, retention and security policies, and documented lessons; ensure these
+    inform subsequent ETL and operations tasks.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: null
+  error_tags: []
+  module: environment
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "0.5d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑011: Data storage infrastructure (SQL Engine)
+- id: Q-011
+  text: "What data storage infrastructure is available (SQL Express or Fabric) and how should we provision it for the warehouse?"
+  level: 1
+  parent: Q-ROOT
+  status: asked
+  kind: discovery
+  decision_importance: medium
+  why: "Ensure a suitable SQL engine is available for developing and hosting the data warehouse without delays"
+  what:
+    - "Confirm whether SQL Express is installed on the VM or accessible elsewhere"
+    - "Assess if Microsoft Fabric’s free warehouse tier can serve as the target database"
+    - "Identify storage limits, connectivity requirements and any setup steps needed"
+  assumptions:
+    - A-011-01
+    - A-011-02
+    - A-011-03
+  errors:
+    - "No SQL engine available, causing blockers for ETL development"
+    - "Underestimating resource limits of the chosen engine"
+  how: |
+    Check the VM for SQL Express installation; if absent, explore using Fabric’s warehouse or
+    installing SQL Express; document the chosen option and any configuration steps required.
+  detail_ref: null
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: details/Q-011_tests.md
+  error_tags: []
+  module: documentation
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "0.5d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑012: Compile final YAML summaries
+- id: Q-012
+  text: "How will we compile and deliver the final YAML summaries for all 19 project documents?"
+  level: 1
+  parent: Q-ROOT
+  status: asked
+  kind: delivery
+  decision_importance: high
+  why: "Produce the required YAML artefacts that encapsulate all critical information from the project documents"
+  what:
+    - "Define the YAML schema for each document summary, ensuring consistency with existing plan_zero and project_charter formats"
+    - "Review and extract key information from each of the 19 documents, noting definitions, requirements, assumptions and tasks"
+    - "Draft and validate YAML files, incorporating feedback and iterating as needed"
+    - "Document any gaps or uncertainties for follow‑up"
+  assumptions:
+    - A-001
+    - A-012-01
+  errors:
+    - "Inconsistent or incomplete summaries leading to confusion"
+    - "Overlooking critical details from a document"
+  how: |
+    Establish a template with sections similar to plan_zero.yaml and project_charter.yaml; systematically
+    process each document using the template; peer‑review each YAML file for accuracy and
+    completeness; iterate based on feedback before final delivery.  Include tasks for
+    aligning with the framework and capturing unknowns as assumptions or follow‑ups.
+  detail_ref: null
+  depends:
+    - Q-006
+    - Q-007
+    - Q-008
+    - Q-009
+    - Q-010
+  block_on_dep: true
+  diagnostic_ref: null
+  error_tags: []
+  module: documentation
+  component: null
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: null
+  goal_id: null
+  metrics:
+    - completion_rate
+  metric_result: null
+  appetite: "2d"
+  pace:
+    estimate_min: null
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: null
+  lessons: []
+  children: []
+  version: 2
+
+# Q‑013: Access and standardise project files
+- id: Q-013
+  text: "How do we access and standardise project files across tools to avoid sandbox mismatches?"
+  level: 1
+  parent: Q-ROOT
+  status: answered
+  kind: discovery
+  decision_importance: medium
+  why: "Ensure every session can reliably read/write project files without tool/sandbox confusion"
+  what:
+    - "Select a canonical workspace for all I/O"
+    - "Add a session startup probe to verify mounts and filenames"
+    - "Define Drive→workspace import flow by folder ID"
+    - "Enforce ASCII‑hyphen naming and no spaces"
+  assumptions:
+    - A-013-01
+    - A-013-02
+  errors:
+    - "Misplaced files cause 'not found' errors"
+    - "Non-ASCII filenames break shell/CI quoting"
+    - "Insufficient Drive permissions block imports"
+  how: |
+    Adopt /mnt/data as the canonical workspace.  On session start, run an environment probe
+    that lists files, flags non‑ASCII/space names and validates read access.  Import
+    files from Google Drive by folder ID into a `drive-import` folder.  Enforce
+    ASCII + hyphen naming.  Record probe results in diagnostics.
+  detail_ref: details/Q-013.md
+  depends: []
+  block_on_dep: false
+  diagnostic_ref: details/Q-013_tests.md
+  error_tags:
+    - HE-NAMING_CONVENTION
+  module: tooling
+  component: connectors
+  change_ref: null
+  decision_ref: null
+  validation_ref: null
+  compatibility_ref: null
+  start_date: 2025-08-12
+  end_date: 2025-08-12
+  goal_id: null
+  metrics: []
+  metric_result: null
+  appetite: "0.5d"
+  pace:
+    estimate_min: 240
+    actual_min: null
+    ratio: null
+  time_log: []
+  decision: "Use /mnt/data as canonical; add env-probe; import from Drive by folder ID; enforce ASCII-hyphen naming"
+  lessons:
+    - {ts: "2025-08-11T00:00:00Z", author: "system", text: "Multiple sandboxes cause misses; verify mounts first."}
+  children: []
+  version: 2

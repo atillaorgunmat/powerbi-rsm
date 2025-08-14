@@ -1,0 +1,25 @@
+=== NC reachability ===
+Connection to 20.117.181.28 port 1433 [tcp/ms-sql-s] succeeded!
+=== Login test ===
+           
+-----------
+          1
+
+(1 rows affected)
+=== DDL test ===
+
+=== sqlpackage publish ===
+Timestamp: Wed Aug  6 13:07:52 UTC 2025
+Publishing to database 'RetailStaging' on server '20.117.181.28,1433'.
+Initializing deployment (Start)
+
+=== sqlpackage publish ===
+Timestamp: Wed Aug  6 13:09:01 UTC 2025
+Publishing to database 'RetailStaging' on server '20.117.181.28,1433'.
+Initializing deployment (Start)
+Initializing deployment (Failed)
+*** An error occurred during deployment plan generation. Deployment cannot continue.
+Error SQL72018: Database Scoped Credential could not be imported but one or more of these objects exist in your source.
+
+Errors occurred while modeling the target database.  Deployment can not continue.
+Time elapsed 0:00:54.12

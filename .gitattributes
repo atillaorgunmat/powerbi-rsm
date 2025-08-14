@@ -1,0 +1,16 @@
+# Normalize text to LF on all platforms
+* text=auto eol=lf
+
+# Binary formats (never diff as text)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.dacpac binary
+*.dll binary
+*.pdb binary
+*.zip binary
+
+# Diff/linguist hints
+*.md  diff=markdown
+*.sql linguist-language=SQL

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "A-010-01",
+    "type": "documentation",
+    "text": "The README_landing and Storyboard documents capture all environment setup details, naming conventions, retention policies and lessons learned.",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  }
+]

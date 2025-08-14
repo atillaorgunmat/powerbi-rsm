@@ -1,0 +1,29 @@
+[
+  {
+    "id": "A-011-01",
+    "type": "environment",
+    "text": "SQL Express is installed on the VM or accessible through remote connection.",
+    "high_risk": true,
+    "check_type": "script",
+    "test_cmd": "Check if the SQL Express service is running or available via sqlcmd",
+    "status": "planned"
+  },
+  {
+    "id": "A-011-02",
+    "type": "access",
+    "text": "Microsoft Fabric’s free warehouse tier is accessible and can be used as the data warehouse target.",
+    "high_risk": true,
+    "check_type": "text",
+    "test_cmd": "Attempt to connect to Fabric and verify warehouse creation",
+    "status": "planned"
+  },
+  {
+    "id": "A-011-03",
+    "type": "environment",
+    "text": "Sample data volumes and resource utilisation fit within the limits of the chosen SQL engine (SQL Express or Fabric free tier).",
+    "high_risk": false,
+    "check_type": "text",
+    "test_cmd": null,
+    "status": "planned"
+  }
+]

@@ -34,3 +34,8 @@ SCD_Strategy.md
 Snapshot_Strategy.md
 deploy_RetailStaging.sql
 project_tree.txt
+
+# SQL project temp outputs
+sqlproject/**/tmp/
+# macOS Finder
+.DS_Store
