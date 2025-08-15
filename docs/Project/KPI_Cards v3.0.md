@@ -630,4 +630,4 @@ Ops teams target outliers to reduce cycle time and improve customer experience.
 | Version | Date | Notes |
 |---------|------|-------|
 | **v2.0** | 2025‑07‑23 | Initial 28 KPI cards covering Sales, Operations, CRM & Cross‑Domain metrics. |
-| **v2.0** | 2025‑07‑?23 | Initial 28 KPI cards covering Sales, Operations, CRM & Cross‑Domain metrics. |
+| **v2.0** | 2025‑07‑23 | Initial 28 KPI cards covering Sales, Operations, CRM & Cross‑Domain metrics. |
