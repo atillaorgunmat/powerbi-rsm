@@ -1,0 +1,36 @@
+name: Generate Q-Chain Mindmaps
+
+on:
+  push:
+    paths:
+      - 'docs/Q_Chain/**/*.yaml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install -r tools/requirements.txt
+
+      - name: Generate mindmaps from live YAMLs
+        run: python tools/generate_qchain_maps.py
+
+      # Auto-commit to the branch that triggered the workflow
+      - name: Commit mindmaps
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "docs: refresh Q-Chain mindmaps"
+          file_pattern: docs/Project/mindmaps/**
