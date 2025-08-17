@@ -7,3 +7,79 @@
 # are produced.
 
 []
+
+# --- Workflow presence & placement
+- id: T-ACT-001
+  question_id: Q-CI-001
+  description: Workflow file exists at .github/workflows/qchain-maps.yml
+  expected: File present at the canonical path
+  check_type: script
+  test_cmd: |
+    test -f .github/workflows/qchain-maps.yml
+
+- id: T-ACT-002
+  question_id: Q-CI-001
+  description: No stray workflow in nested qchain_autogen_* folder
+  expected: No workflow files outside .github/workflows
+  check_type: script
+  test_cmd: |
+    ! find . -path "./.github/workflows/*" -prune -o -name "qchain-maps.yml" -print | grep -v "^\.github/workflows/"
+
+# --- Workflow content sanity
+- id: T-ACT-003
+  question_id: Q-CI-001
+  description: Workflow YAML has required keys (name:, on:, jobs:)
+  expected: Keys present
+  check_type: script
+  test_cmd: |
+    grep -q "^name:" .github/workflows/qchain-maps.yml && \
+    grep -q "^on:" .github/workflows/qchain-maps.yml && \
+    grep -q "^jobs:" .github/workflows/qchain-maps.yml
+
+# --- Repo settings / permissions (manual)
+- id: T-ACT-004
+  question_id: Q-CI-001
+  description: Actions enabled + Workflow permissions set to Read & write
+  expected: Actions enabled; workflow can commit or PR
+  check_type: manual
+  test_cmd: |
+    echo "Check Settings → Actions → General → Workflow permissions: Read and write permissions"
+
+# --- Branch visibility
+- id: T-ACT-005
+  question_id: Q-CI-001
+  description: Workflow committed to the current branch (not only local)
+  expected: GitHub shows qchain-maps.yml in branch tree
+  check_type: script
+  test_cmd: |
+    git ls-files .github/workflows/qchain-maps.yml | grep -q .
+
+# --- Trigger conditions
+- id: T-ACT-006
+  question_id: Q-CI-001
+  description: Path filter matches (push included docs/Q_Chain/**/*.yaml)
+  expected: Recent commit touched a YAML under docs/Q_Chain/
+  check_type: script
+  test_cmd: |
+    git show --name-only HEAD | grep -E "^docs/Q_Chain/.*\.ya?ml$" 
+
+# --- Generator availability
+- id: T-ACT-007
+  question_id: Q-CI-001
+  description: Generator script exists and is runnable
+  expected: tools/generate_qchain_maps.py present
+  check_type: script
+  test_cmd: |
+    test -f tools/generate_qchain_maps.py
+
+# --- Local dry run (fallback proof)
+- id: T-ACT-008
+  question_id: Q-CI-001
+  description: Local run produces outputs in docs/Project/mindmaps/
+  expected: qchain_mindmap.md + qchain_dependencies.md + qchain.mm created
+  check_type: script
+  test_cmd: |
+    python3 tools/generate_qchain_maps.py && \
+    test -f docs/Project/mindmaps/qchain_mindmap.md && \
+    test -f docs/Project/mindmaps/qchain_dependencies.md && \
+    test -f docs/Project/mindmaps/qchain.mm
