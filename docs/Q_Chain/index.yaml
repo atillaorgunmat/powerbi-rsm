@@ -5,6 +5,7 @@ shards:
 next_child_index:
   Q-ROOT: 14  # next child counter for Q‑ROOT (next available after Q‑013)
 settings:
+  settings.projects_backup_path: "Drive/ProjectsBackups/PowerBI-RSM".
   default_kind: discovery
   delivery_requires_metric: conditional
   appetite_default: "1d"
