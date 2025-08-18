@@ -1,0 +1,9 @@
+# Global constraints manifest (add, then reference by id in nodes if useful)
+# examples:
+# - id: C-01
+#   text: "Budget cap for phase 1 is $2,000"
+#   applies_to: ["delivery"]
+# - id: C-02
+#   text: "No PII handled or stored"
+#   applies_to: ["discovery","delivery"]
+[]

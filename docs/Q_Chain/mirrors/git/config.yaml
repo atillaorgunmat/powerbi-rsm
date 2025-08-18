@@ -1,0 +1,3 @@
+repo_url: "<set-your-git-remote>"
+branch: "main"
+publish_mode: "snapshot-only"   # don't overwrite; publish dated snapshots
