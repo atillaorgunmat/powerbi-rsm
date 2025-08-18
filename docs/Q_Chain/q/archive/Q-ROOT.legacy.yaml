@@ -1,0 +1,33 @@
+id: Q-ROOT
+title: "Project discovery and acceptance criteria"
+kind: discovery
+module: operations
+decision_importance: high
+why: "Align scope, risks, and acceptance so we can deliver quickly with minimal surprises."
+what:
+  - "Done-criteria defined and approved"
+  - "Options compared (A/B) against constraints"
+  - "High-risk assumptions identified and tests drafted"
+  - "Acceptance tests and KPIs drafted"
+assumptions:
+  - id: A-001
+    text: "Stakeholders available for 30-min review this week"
+    risk: low
+  - id: A-002
+    text: "Access to required environment/credentials"
+    risk: high
+    test_cmd: "python tests/check_creds.py"
+errors:
+  - id: E-ROOT-01
+    text: "Wrong scope due to missing stakeholder"
+  - id: E-ROOT-02
+    text: "Hidden dependency slows delivery"
+constraints:
+  - "budget:$2000"
+  - "deadline:2025-09-30"
+  - "PII:no"
+depends: []
+how: "Draft A/B approaches, define acceptance tests, validate high-risk assumptions, and agree on a pilot path."
+status: asked
+block_on_dep: false
+web_allowed: false
