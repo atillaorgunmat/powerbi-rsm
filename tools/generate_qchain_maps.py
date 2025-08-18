@@ -29,12 +29,18 @@ def _normalize_node(d: dict) -> dict:
         "what": [x for x in (d.get("what") or []) if x],
     }
 
+def _skip(path: Path) -> bool:
+    parts = set(path.parts)
+    if 'archive' in parts: return True
+    if path.name.endswith('.legacy.yaml'): return True
+    return False
+
 def load_all_qnodes():
     """Load Q-nodes from shard files (supports: list-root, {questions: [...]}, or single object)."""
     nodes = []
     for pat in Q_GLOB:
         for p in sorted(Q_DIR.glob(pat)):
-            if not p.is_file():
+            if _skip(p) or not p.is_file():
                 continue
             try:
                 docs = list(yaml.safe_load_all(p.read_text(encoding="utf-8")))
