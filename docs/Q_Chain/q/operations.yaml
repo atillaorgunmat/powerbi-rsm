@@ -1,12 +1,18 @@
-questions:
-  - id: Q-OPS-MMAPS
-    title: Mindmaps compile from live YAMLs (modules as subgraphs)
-    why: Keep visuals always-in-sync for review
-    what:
-      - Mermaid mindmap renders under Q‑Chain with module branches
-      - Flowchart shows per-module subgraphs and Q↤Q/A/E edges
-      - CI runs in PR-only mode
-    tags: [mod:operations, status:asked, priority:P1]
-    parent: Q-META-ADOPT
-    depends: [A-CI-PROMODE]
-    block_on_dep: false
+# list-root shard; module derived from tags
+- id: Q-OPS-0001
+  title: Project discovery and acceptance criteria
+  text: What must be discovered + agreed to accept this project?
+  tags: [mod:operations, phase:kickoff]
+  status: asked
+  what:
+    - Identify scope boundaries
+    - Confirm stakeholders & decision cadence
+  depends: []
+
+- id: Q-OPS-0002
+  title: Canonical docs & governance hygiene
+  text: Do we have canonical docs, archive policy, and governance wired?
+  tags: [mod:operations, domain:governance]
+  status: unasked
+  parent: Q-OPS-0001
+  depends: [Q-OPS-0001]

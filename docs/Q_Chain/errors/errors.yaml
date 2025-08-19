@@ -1,12 +1,7 @@
 errors:
-  - id: E-GRD-CANON
-    text: All governance must live only under docs/Q_Chain/ (no root-level duplicates).
-    high_risk: false
-    check_type: structure
-    status: open
-
-  - id: E-MODS-MISSING
-    text: At least one mod:* tag must exist on every question node.
-    high_risk: false
-    check_type: lint
-    status: open
+  - id: E-0001
+    text: Canonical doc edited outside docs/Project/.
+    tags: [mod:operations]
+  - id: E-0002
+    text: Workflow failed to generate mindmaps from live YAMLs.
+    tags: [mod:operations]

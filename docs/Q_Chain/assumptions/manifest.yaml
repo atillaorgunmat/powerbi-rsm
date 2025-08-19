@@ -1,18 +1,7 @@
 assumptions:
-  - id: A-FRAME-TAGS
-    text: Questions will carry at least one mod:* tag to indicate module placement.
-    high_risk: false
-    check_type: manual
-    status: noted
-
-  - id: A-CI-PROMODE
-    text: Mindmap workflow is PR-only (no direct pushes by bots).
-    high_risk: false
-    check_type: manual
-    status: noted
-
-  - id: A-DEPS-MIXED
-    text: A question's depends[] may include Q-, A-, E- identifiers, all visualized.
-    high_risk: false
-    check_type: manual
-    status: noted
+  - id: A-0001
+    text: Canonical docs live under docs/Project/ and are the single source of truth.
+    tags: [mod:operations]
+  - id: A-0002
+    text: GitHub PRs are required for critical paths (docs/Project/*, sqlproject/*).
+    tags: [mod:operations]
