@@ -1,0 +1,12 @@
+questions:
+  - id: Q-OPS-MMAPS
+    title: Mindmaps compile from live YAMLs (modules as subgraphs)
+    why: Keep visuals always-in-sync for review
+    what:
+      - Mermaid mindmap renders under Q‑Chain with module branches
+      - Flowchart shows per-module subgraphs and Q↤Q/A/E edges
+      - CI runs in PR-only mode
+    tags: [mod:operations, status:asked, priority:P1]
+    parent: Q-META-ADOPT
+    depends: [A-CI-PROMODE]
+    block_on_dep: false

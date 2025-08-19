@@ -1,0 +1,4 @@
+constraints:
+  - id: C-TAG-MODULE
+    rule: Every question must include >=1 tag starting with 'mod:'.
+    severity: warn

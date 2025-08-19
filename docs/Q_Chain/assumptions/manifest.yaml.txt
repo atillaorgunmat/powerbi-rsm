@@ -1,0 +1,18 @@
+assumptions:
+  - id: A-FRAME-TAGS
+    text: Questions will carry at least one mod:* tag to indicate module placement.
+    high_risk: false
+    check_type: manual
+    status: noted
+
+  - id: A-CI-PROMODE
+    text: Mindmap workflow is PR-only (no direct pushes by bots).
+    high_risk: false
+    check_type: manual
+    status: noted
+
+  - id: A-DEPS-MIXED
+    text: A question's depends[] may include Q-, A-, E- identifiers, all visualized.
+    high_risk: false
+    check_type: manual
+    status: noted

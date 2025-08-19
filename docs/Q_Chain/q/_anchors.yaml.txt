@@ -1,0 +1,23 @@
+questions:
+  - id: Q-ROOT
+    title: Project discovery and acceptance criteria
+    why: Establish scope and success gates
+    what:
+      - Acceptance criteria captured and agreed
+      - Critical paths identified
+    tags: [mod:planning, status:asked, priority:P1]
+    parent:
+    depends: []
+    block_on_dep: false
+
+  - id: Q-META-ADOPT
+    title: Adopt Q‑Chain v4 and tag-first schema
+    why: Make governance scalable and queryable by tags
+    what:
+      - v4 skeleton in place
+      - Questions sharded, tags normalized
+      - Mindmaps autogen via PR
+    tags: [mod:operations, status:asked, priority:P1]
+    parent: Q-ROOT
+    depends: [A-FRAME-TAGS, E-GRD-CANON]
+    block_on_dep: false
