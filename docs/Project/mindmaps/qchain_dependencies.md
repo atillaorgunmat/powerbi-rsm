@@ -15,20 +15,15 @@ flowchart TB
   Q-012["Q-012<br/>How will we compile and deliver the final YAML summaries for all 19 project documents?"]
   Q-013["Q-013<br/>How do we access and standardise project files across tools to avoid sandbox mismatches?"]
   Q-META-ADOPT["Q-META-ADOPT<br/>Adopt Q‑Chain v4 and tag-first schema"]
-  Q-OPS-MMAPS["Q-OPS-MMAPS<br/>Mindmaps compile from live YAMLs (modules as subgraphs)"]
+  Q-OPS-0001["Q-OPS-0001<br/>Project discovery and acceptance criteria"]
+  Q-OPS-0002["Q-OPS-0002<br/>Canonical docs & governance hygiene"]
   Q-XXX["Q-XXX<br/>Your question here"]
-  A-FRAME-TAGS["A-FRAME-TAGS<br/>Questions will carry at least one mod:* tag to indicate module placement."]
-  A-CI-PROMODE["A-CI-PROMODE<br/>Mindmap workflow is PR-only (no direct pushes by bots)."]
-  A-DEPS-MIXED["A-DEPS-MIXED<br/>A question's depends[] may include Q-, A-, E- identifiers, all visualized."]
-  E-GRD-CANON["E-GRD-CANON<br/>All governance must live only under docs/Q_Chain/ (no root-level duplicates)."]
-  E-MODS-MISSING["E-MODS-MISSING<br/>At least one mod:* tag must exist on every question node."]
+  A-0001["A-0001<br/>Canonical docs live under docs/Project/ and are the single source of truth."]
+  A-0002["A-0002<br/>GitHub PRs are required for critical paths (docs/Project/*, sqlproject/*)."]
+  E-0001["E-0001<br/>Canonical doc edited outside docs/Project/."]
+  E-0002["E-0002<br/>Workflow failed to generate mindmaps from live YAMLs."]
   subgraph "analytics"
     Q-008
-  end
-  subgraph "assumptions"
-    A-CI-PROMODE
-    A-DEPS-MIXED
-    A-FRAME-TAGS
   end
   subgraph "documentation"
     Q-011
@@ -36,10 +31,6 @@ flowchart TB
   end
   subgraph "environment"
     Q-010
-  end
-  subgraph "errors"
-    E-GRD-CANON
-    E-MODS-MISSING
   end
   subgraph "etl"
     Q-007
@@ -51,9 +42,14 @@ flowchart TB
     Q-006
   end
   subgraph "operations"
+    A-0001
+    A-0002
+    E-0001
+    E-0002
     Q-009
     Q-META-ADOPT
-    Q-OPS-MMAPS
+    Q-OPS-0001
+    Q-OPS-0002
   end
   subgraph "planning"
     Q-001
@@ -84,14 +80,11 @@ flowchart TB
   Q-010 --> Q-012
   Q-ROOT --> Q-012
   Q-ROOT --> Q-013
-  A-FRAME-TAGS --> Q-META-ADOPT
-  E-GRD-CANON --> Q-META-ADOPT
   Q-ROOT --> Q-META-ADOPT
-  A-CI-PROMODE --> Q-OPS-MMAPS
-  Q-META-ADOPT --> Q-OPS-MMAPS
+  Q-OPS-0001 --> Q-OPS-0002
   Q-ROOT --> Q-XXX
   classDef assumption stroke-dasharray:3 3,stroke-width:2;
-  class A-FRAME-TAGS A-CI-PROMODE A-DEPS-MIXED assumption;
+  class A-0001 A-0002 assumption;
   classDef error stroke:#b00,stroke-width:2,fill:#fee;
-  class E-GRD-CANON E-MODS-MISSING error;
+  class E-0001 E-0002 error;
 ```

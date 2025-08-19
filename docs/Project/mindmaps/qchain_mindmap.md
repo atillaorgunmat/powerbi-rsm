@@ -25,7 +25,10 @@ mindmap
       Q-009[Q-009 — What KPIs, metrics and definitions are provided in the KPI and trace documents?]
         status: asked
       Q-META-ADOPT[Q-META-ADOPT — Adopt Q‑Chain v4 and tag-first schema]
-      Q-OPS-MMAPS[Q-OPS-MMAPS — Mindmaps compile from live YAMLs (modules as subgraphs)]
+      Q-OPS-0001[Q-OPS-0001 — Project discovery and acceptance criteria]
+        status: asked
+      Q-OPS-0002[Q-OPS-0002 — Canonical docs & governance hygiene]
+        status: unasked
     planning
       Q-001[Q-001 — How should we structure the Q‑Chain to manage the retail data warehouse and analytics project based on the uploaded documents?]
         status: asked
