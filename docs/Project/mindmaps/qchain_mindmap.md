@@ -24,6 +24,8 @@ mindmap
     operations
       Q-009[Q-009 — What KPIs, metrics and definitions are provided in the KPI and trace documents?]
         status: asked
+      Q-META-ADOPT[Q-META-ADOPT — Adopt Q‑Chain v4 and tag-first schema]
+      Q-OPS-MMAPS[Q-OPS-MMAPS — Mindmaps compile from live YAMLs (modules as subgraphs)]
     planning
       Q-001[Q-001 — How should we structure the Q‑Chain to manage the retail data warehouse and analytics project based on the uploaded documents?]
         status: asked
@@ -35,8 +37,7 @@ mindmap
         status: answered
       Q-005[Q-005 — What roadmap should we follow to revisit and refine the Q‑Chain after the initial YAML compilation?]
         status: asked
-      Q-ROOT[Q-ROOT — Set up the retail analytics project Q‑Chain]
-        status: asked
+      Q-ROOT[Q-ROOT — Project discovery and acceptance criteria]
     tooling
       Q-013[Q-013 — How do we access and standardise project files across tools to avoid sandbox mismatches?]
         status: answered
